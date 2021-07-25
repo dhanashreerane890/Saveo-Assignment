@@ -40,9 +40,8 @@ class MainActivity : AppCompatActivity() {
         setHorizontalSlider()
         callViewModel()
 
-
     }
-
+        // fetching data from server
     private fun callViewModel() {
         val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.getMyMovies().observe(this, Observer {
