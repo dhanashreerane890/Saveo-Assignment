@@ -6,9 +6,10 @@
 
     <ImageView
         android:id="@+id/iv_NowShowing"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp" />
+        android:layout_width="@dimen/_100sdp"
+        android:elevation="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_height="@dimen/_120sdp" />
 
 </LinearLayout>

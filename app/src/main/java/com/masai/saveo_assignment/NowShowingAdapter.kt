@@ -1,5 +1,6 @@
 package com.masai.saveo_assignment
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,10 @@ class NowShowingAdapter (val responseList:MutableList<ResponseModel>):RecyclerVi
         val result = responseList[position].show
         if (result != null) {
             Glide.with(holder.itemView.iv_NowShowing).load(result?.image?.original).into(holder.itemView.iv_NowShowing)
+        }
+        holder.itemView.setOnClickListener {
+            val intent =Intent(holder.itemView.context,MovieDetailsActivity::class.java)
+            holder.itemView.context.startActivity(intent)
         }
     }
 
