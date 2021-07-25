@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.getMyMovies().observe(this, Observer {
             movie_responseList.addAll(it as MutableList<ResponseModel>)
+            nowShowing_responseList.addAll(it)
             nowShowingAdapter.notifyDataSetChanged()
         })
     }
