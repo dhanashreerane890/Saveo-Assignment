@@ -1,4 +1,4 @@
-package com.masai.saveo_assignment
+package com.masai.saveo_assignment.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

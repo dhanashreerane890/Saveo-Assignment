@@ -30,10 +30,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp">
 
+                <View
+                    android:id="@+id/backArrow"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/ic_baseline_arrow_back_ios_new_24" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_arrow_back_ios_new_24"
                     android:drawableEnd="@drawable/ic_baseline_ios_share_24"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_5sdp"
@@ -66,7 +73,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:text="The Hateful Eight"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_15sdp" />
 
@@ -78,20 +84,11 @@
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <!--                    <TextView-->
-                        <!--                        android:layout_width="match_parent"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:layout_weight="1"-->
-                        <!--                        android:textColor="@color/white"-->
-                        <!--                        android:text="R" />-->
-
-
                         <TextView
                             android:id="@+id/tvTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="R"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -99,7 +96,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="R"
+
                             android:textColor="@color/white" />
 
 
@@ -166,8 +163,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_7sdp"
-                            android:text="4.5"
-
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -181,7 +176,6 @@
 
 
                         <TextView
-                            android:id="@+id/tvReviews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5sdp"
@@ -190,11 +184,11 @@
                             android:textSize="@dimen/_9sdp" />
 
                         <TextView
+                            android:id="@+id/tvReviews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:text="10"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_9sdp" />
 
@@ -208,24 +202,17 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/_9sdp" />
 
-
-                        <!--                        <View-->
-                        <!--                            android:layout_width="@dimen/_1sdp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:background="@color/white" />-->
-
                         <TextView
+                            android:id="@+id/tvUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:text="1000"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_9sdp" />
 
                         <TextView
-                            android:id="@+id/tvUser"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -264,20 +251,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:textAlignment="textStart"
-        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/SynopsisHeading" >
+        app:layout_constraintTop_toBottomOf="@id/SynopsisHeading">
 
         <TextView
+            android:id="@+id/tvSummery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textColor="#221E1E"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </ScrollView>
 
@@ -285,14 +273,14 @@
         android:id="@+id/btnBookNow"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/button_bg"
         android:elevation="@dimen/_10sdp"
         android:text="BOOK NOW"
-        app:layout_constraintBottom_toTopOf="@id/SynopsisHeading"
         android:textColor="#33678F"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-     android:layout_marginEnd="@dimen/_20sdp"/>
+        app:layout_constraintBottom_toTopOf="@id/SynopsisHeading"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

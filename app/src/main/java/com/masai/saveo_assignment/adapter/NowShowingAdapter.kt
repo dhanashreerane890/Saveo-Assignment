@@ -1,4 +1,4 @@
-package com.masai.saveo_assignment
+package com.masai.saveo_assignment.adapter
 
 import android.content.Intent
 import android.util.Log
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.masai.saveo_assignment.MovieDetailsActivity
+import com.masai.saveo_assignment.R
 import com.masai.saveo_assignment.model_classes.ResponseModel
 import kotlinx.android.synthetic.main.now_showing_item_layout.view.*
 
@@ -27,8 +29,17 @@ class NowShowingAdapter (val responseList:MutableList<ResponseModel>):RecyclerVi
         if (result != null) {
             Glide.with(holder.itemView.iv_NowShowing).load(result?.image?.original).into(holder.itemView.iv_NowShowing)
         }
+        //data passing to scond activity
         holder.itemView.setOnClickListener {
-            val intent =Intent(holder.itemView.context,MovieDetailsActivity::class.java)
+            val intent =Intent(holder.itemView.context, MovieDetailsActivity::class.java)
+            intent.putExtra("movieImage",result?.image?.original.toString())
+            intent.putExtra("movieName",result?.name.toString())
+            intent.putExtra("movieTime",result?.schedule?.time.toString())
+            intent.putExtra("movieSummery",result?.summary.toString())
+            intent.putExtra("movieDate",result?.premiered.toString())
+            intent.putExtra("movieRating",result?.rating?.average.toString())
+            intent.putExtra("movieReviews",result?.runtime.toString())
+            intent.putExtra("movieUsers",result?.id.toString())
             holder.itemView.context.startActivity(intent)
         }
     }

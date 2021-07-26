@@ -2,7 +2,6 @@ package com.masai.saveo_assignment
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,7 +11,10 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.masai.saveo_assignment.adapter.HorizontalSliderAdapter
+import com.masai.saveo_assignment.adapter.NowShowingAdapter
 import com.masai.saveo_assignment.model_classes.ResponseModel
+import com.masai.saveo_assignment.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,32 +29,83 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewPager2: ViewPager2
     lateinit var handler: Handler
 
+    // Pagination
+    lateinit var mlayoutManager: GridLayoutManager
+    private var isLoading: Boolean = true
+    private var totalItemCount: Int = 0
+    private var firstVisibleItemCount: Int = 0
+    private var visibleItemCount: Int = 0
+    private var previousTotal: Int = 0
+
+    private var page = 1;
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        nowShowingAdapter = NowShowingAdapter(nowShowing_responseList)
 
-        rvNowShowing.layoutManager = GridLayoutManager(this, 3)
-        rvNowShowing.adapter = nowShowingAdapter
         viewPager2 = ViewPager2(this)
         viewPager2 = findViewById(R.id.viewPagerImageSliderHorizontal)
         handler = Handler()
         setHorizontalSlider()
         callViewModel()
 
+        nowShowingAdapter = NowShowingAdapter(nowShowing_responseList)
+        mlayoutManager = GridLayoutManager(this, 3)
+        rvNowShowing.layoutManager = mlayoutManager
+        rvNowShowing.adapter = nowShowingAdapter
+        pagination()
+
     }
-        // fetching data from server
-    private fun callViewModel() {
+
+    //pagination  code
+    private fun pagination() {
+        rvNowShowing.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemCount = mlayoutManager.childCount
+                totalItemCount = mlayoutManager.itemCount
+                firstVisibleItemCount = mlayoutManager.findFirstVisibleItemPosition()
+                if (isLoading) {
+                    if (totalItemCount > previousTotal) {
+                        previousTotal = totalItemCount;
+                        page++
+                        isLoading = false
+                    }
+                }
+                if (!isLoading && (firstVisibleItemCount + visibleItemCount) >= totalItemCount) {
+                    getNext()
+                    isLoading = true
+                }
+            }
+        })
+    }
+
+    private fun getNext() {
         val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        viewModel.getMyMovies().observe(this, Observer {
-            movie_responseList.addAll(it as MutableList<ResponseModel>)
+        viewModel.getMyMovies(page).observe(this, Observer {
             nowShowing_responseList.addAll(it)
             nowShowingAdapter.notifyDataSetChanged()
         })
     }
 
 
-    private fun setHorizontalSlider() {
+    // fetching data from server
+    private fun callViewModel() {
+        val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        viewModel.getMyMovies(page).observe(this, Observer {
+            movie_responseList.addAll(it as MutableList<ResponseModel>)
+            nowShowing_responseList.addAll(it)
+            nowShowingAdapter.notifyDataSetChanged()
+        })
+    }
+
+          // horizontal slider implementation
+      private fun setHorizontalSlider() {
         horizontalSliderAdapter = HorizontalSliderAdapter(movie_responseList, viewPager2)
         viewPager2.adapter = horizontalSliderAdapter
         viewPager2.clipToPadding = false;
